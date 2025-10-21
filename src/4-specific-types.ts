@@ -9,7 +9,7 @@
 // -------------------------------------------------------------
 
 type User = {
-    id: string
+    id: number
     username: string
 }
 
@@ -21,8 +21,12 @@ type SuperAdmin = User & {
     role: "super-admin"
 }
 
-let ivan: BasicAdmin & SuperAdmin
-
+let ivan: BasicAdmin | SuperAdmin = {
+    id: 1,
+    role: "super-admin",
+    username: "ivan"
+}
+console.log(ivan)
 // -------------------------- 2 пункт --------------------------
 // -------------------------------------------------------------
 // -------------------------------------------------------------
@@ -39,10 +43,28 @@ let ivan: BasicAdmin & SuperAdmin
 // 4. В типе запроса должны быть (data, errors, statusCode (100 - 499), requestUrl)
 // -------------------------------------------------------------
 
-type RequestPayload = {}
+type RequestPayload = {
+    statusCode: number
+    requestUrl: string
+    header: object
+    cookies: object
+    data: unknown
+}
 
 async function customFetch(): Promise<RequestPayload> {
-    const data: RequestPayload = {}
+    const payload: Promise<RequestPayload> = new Promise((res) => {
+        res({
+            cookies: {},
+            data: {},
+            header: {},
+            statusCode: 200,
+            requestUrl: "https://google.com/api/users"
+        } satisfies RequestPayload)
+    })
 
-    return data
+    return payload
 }
+
+customFetch().then((data) => {
+    data.
+})

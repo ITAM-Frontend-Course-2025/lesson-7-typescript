@@ -11,11 +11,33 @@
 // const variable = 
 type Human = {
     name: string
+    age: number
 }
 
-// type Worker = 
+type EcoActivist = Human & {
+    countryToDefend: string
+}
 
-// type Programmer = 
+type Degree = "высшее" | "среднее" | "среднее-общее" | "средне-специально"
+
+type Worker = Human & {
+    degree: Degree
+    salary: number
+    jobName: string
+}
+
+type Programmer = Worker & {
+    language: "js" | "ts" | "rust" | "c++"
+}
+
+const vasya: Programmer = {
+    name: "vaasya",
+    age: 10,
+    degree: "высшее",
+    jobName: "Misis",
+    language: "ts",
+    salary: 100_000_000
+}
 
 // -------------------------- 2 пункт --------------------------
 // -------------------------------------------------------------
@@ -34,14 +56,39 @@ type CreateSteelAction = {
     type: "create-steel"
 }
 
+type RepairBuildingAction = {
+    type: "repair-building"
+}
+
+type RepairCarsAction = {
+    type: "repair-cars"
+}
+
+
+
 // и тд.....
 
-// type Action = 
+type ActionModel = CreateSteelAction | RepairBuildingAction | RepairCarsAction
 
-function fabric(action) {
+function fabric(action: ActionModel): void {
     switch (action.type) {
         case "create-steel": 
+            console.log()
             // Some logic for specific action ...
         // И тд для каждого экшена
+            break
+        case "repair-building": {
+            console.log("REpairing building....")
+            break
+        }
+        case "repair-cars": {
+            console.log("Repairing cars....")
+            break
+        }
     }
 }
+
+
+
+
+

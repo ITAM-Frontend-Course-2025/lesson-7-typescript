@@ -2,22 +2,38 @@
 // -------------------------------------------------------------
 // -------------------------------------------------------------
 
+type Callback = () => void
+
+const ab: Callback = () => {console.log("12312")}
+
 // Условие------------------------------------------------------
 // 1. Типизируй аргументы фильтрации базара
 //
 // 2. Типизируй возвращаемое значение функции
 // -------------------------------------------------------------
+type FilterChecker = (arg1: string) => boolean 
 
-// const variable = 
-// type FilterChecker = // ...
-
-function filterBazar(bazar, filterCondition: FilterChecker) {
-    return bazar.filter(filterCondition)
+function filterBazar(bazar: string[], filterCondition: (arg1: string) => boolean): string[] {
+    return bazar.filter((value) => filterCondition(value))
 }
+
+const checker: FilterChecker = (name) => {
+    if (name === "bazar") {
+        return true
+    }
+    
+    return false
+}
+
+filterBazar(["bazar", "bazar", "ne bazar"], checker)
 
 // -------------------------- 2 пункт --------------------------
 // -------------------------------------------------------------
 // -------------------------------------------------------------
+
+// type Object1 = {
+//     name?: string
+// }
 
 // Условие------------------------------------------------------
 // 1. Создай тип функции колбека
@@ -25,8 +41,8 @@ function filterBazar(bazar, filterCondition: FilterChecker) {
 // 2. Подключи этот тип к кастомной реализации forEach
 // -------------------------------------------------------------
 
-// type Callback =
+type CallbackType = (value: number, index?: number, array?: number[]) => void
 
-function customForEach(arr: unknown[], callback) {
+function customForEach(arr: number[], callback: CallbackType) {
     arr.forEach(callback)
 }

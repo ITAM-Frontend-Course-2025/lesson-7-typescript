@@ -16,13 +16,26 @@
 // В этом примере store - это хеш таблица, где по id (ключу объекта), можно получить юзера
 // -------------------------------------------------------------
 
-type Store = {}
+type Store<T extends object> = T[] 
 
-type SomeEntity = {}
+type Programmer = {
+    id: number,
+    name: string
+}
 
-// type SomeEntitiesStore = Store<...>
+type ProgrammersStore = Store<Programmer>
 //
-// const someEntitiesStore: EntitiesStore = { ... }
+const someEntitiesStore: ProgrammersStore = [
+    {
+        id: 1,
+        name: "Ican",
+    },
+    {
+        id: 2,
+        name: "Vasya"
+    }
+    // ...
+]
 
 // -------------------------- 2 пункт --------------------------
 // -------------------------------------------------------------
@@ -33,10 +46,20 @@ type SomeEntity = {}
 // чтобы она стала дженериком. Этот дженерик должен использоваться в возвращаемом типе
 // -------------------------------------------------------------
 
-type GetDataReturnValue = {}
+type GetDataReturnValue<T> = {
+    data: T
+}
 
-function getData(): Promise<GetDataReturnValue> {
-    const data: GetDataReturnValue = {}
+function getData<T>(): Promise<GetDataReturnValue<T>> {
+    const data: GetDataReturnValue<T> = {
+
+    }
 
     return Promise.resolve(data)
 }
+
+type User = {
+    id: number
+}
+
+const users = getData<User>()
